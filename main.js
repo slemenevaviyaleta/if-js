@@ -37,13 +37,101 @@ for (let i = 0; i < array.length; i++) {
     }
 }
 
-array=[2, 5, 8, 15, 0, 6, 20, 3];
+array = [2, 5, 8, 15, 0, 6, 20, 3];
 
 for (let i = 0; i < array.length; i++) {
-     if (array[i] % 2 === 0) {
-         console.log(array[i]);
-     }
- }
+    if (array[i] % 2 === 0) {
+        console.log(array[i]);
+    }
+}
+
+
+
+function palindrome(word) {
+    let length = word.length;
+    for (let i = 0; i < length; i++) {
+        if (word[i] === word[length - 1 - i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+console.log(palindrome('шалаш'));
+
+
+
+function min(a,b) {
+    if (a<b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+console.log(min(17,10))
+
+//function min(a,b) {
+//     return(a<b)? a : b;
+// }
+//
+// console.log(min(10,66))
+
+
+
+function max(a,b) {
+    if (a>b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+console.log(max(27,10))
+
+//function max (a,b) {
+//     return(a>b)? a : b;
+// }
+//
+// console.log(max(1,-1))
+
+
+
+
+array = [60, 19, 14, 5, 100, 67, 86, 0, 5, 90, 12];
+
+const newArray = [];
+
+for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+    if (element % 10 === 0) {
+        newArray[i] = element / 10 + "zero";
+        if (element % 100 === 0) {
+            newArray[i]= element / 100 + "zero" + "zero";
+        }
+        if (element === 0) {
+            newArray[i] = "zero";
+        }
+    } else {
+        newArray[i] = element;
+    }
+}
+
+console.log(newArray);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
