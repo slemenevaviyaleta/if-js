@@ -109,13 +109,6 @@ for (let i = 0; i < array.length; i++) {
 
 console.log(newArray);
 
-function sum(a) {
-  return function (b) {
-    return a + b;
-  };
-}
-
-console.log(sum(5)(2));
 
 const text1 = document.getElementById("text1");
 let i = 0;
@@ -152,3 +145,12 @@ text3.addEventListener("click", function onClick() {
     i = 0;
   }
 });
+
+function sum(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+
+console.log(sum(5)(2));
+
