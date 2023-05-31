@@ -109,7 +109,6 @@ for (let i = 0; i < array.length; i++) {
 
 console.log(newArray);
 
-
 const text1 = document.getElementById("text1");
 let i = 0;
 let colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
@@ -153,4 +152,3 @@ function sum(a) {
 }
 
 console.log(sum(5)(2));
-
