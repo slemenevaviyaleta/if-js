@@ -145,10 +145,6 @@ text3.addEventListener("click", function onClick() {
   }
 });
 
-function sum(a) {
-  return function (b) {
-    return a + b;
-  };
-}
+import { sum } from "./module.js";
 
 console.log(sum(5)(2));
