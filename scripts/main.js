@@ -148,3 +148,87 @@ text3.addEventListener("click", function onClick() {
 import { sum } from "./module.js";
 
 console.log(sum(5)(2));
+
+
+let date='2020-11-26';
+let reg=/(\d+)\S(\d+)\S(\d+)/;
+const newDate=date.replace(reg,'$3.$2.$1')
+
+console.log(newDate)
+
+
+const data = [
+  {
+    country: 'Russia',
+    city: 'Saint Petersburg',
+    hotel: 'Hotel Leopold',
+  },
+  {
+    country: 'Spain',
+    city: 'Santa Cruz de Tenerife',
+    hotel: 'Apartment Sunshine',
+  },
+  {
+    country: 'Slowakia',
+    city: 'Vysokie Tatry',
+    hotel: 'Villa Kunerad',
+  },
+  {
+    country: 'Germany',
+    city: 'Berlin',
+    hotel: 'Hostel Friendship',
+  },
+  {
+    country: 'Indonesia',
+    city: 'Bali',
+    hotel: 'Ubud Bali Resort&SPA',
+  },
+  {
+    country: 'Netherlands',
+    city: 'Rotterdam',
+    hotel: 'King Kong Hostel',
+  },
+  {
+    country: 'Marocco',
+    city: 'Ourika',
+    hotel: 'Rokoko Hotel',
+  },
+  {
+    country: 'Germany',
+    city: 'Berlin',
+    hotel: 'Hotel Rehberge Berlin Mitte',
+  },
+];
+
+function search(arr) {
+  let matchingStrings = [];
+
+  const cities = [
+    'Berlin',
+    'Santa Cruz de Tenerife',
+    'Vysokie Tatry',
+    'Bali',
+    'Rotterdam',
+    'Ourika'
+  ];
+
+  let matchingStringsIndex = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (cities.includes(arr[i].city)) {
+      const str = `${arr[i].country}, ${arr[i].city}, ${arr[i].hotel}`;
+      matchingStrings[matchingStringsIndex] = str;
+      matchingStringsIndex++;
+    }
+  }
+
+  return matchingStrings;
+}
+
+console.log(search(data));
+
+
+
+
+
+
