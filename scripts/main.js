@@ -154,7 +154,7 @@ import { formatDate } from "./module.js";
 console.log(formatDate())
 
 
-const data = [
+let data = [
   {
     country: 'Russia',
     city: 'Saint Petersburg',
@@ -197,32 +197,52 @@ const data = [
   },
 ];
 
-function search(arr) {
-  let matchingStrings = [];
+function newArr (data) {
+  let strArr=[];
 
-  const cities = [
-    'Berlin',
-    'Santa Cruz de Tenerife',
-    'Vysokie Tatry',
-    'Bali',
-    'Rotterdam',
-    'Ourika'
-  ];
+  for (let i = 0; i < data.length; i++) {
+    let item = data[i];
 
-  let matchingStringsIndex = 0;
+    if (item.city.includes('Saint Petersburg')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
+    }
 
-  for (let i = 0; i < arr.length; i++) {
-    if (cities.includes(arr[i].city)) {
-      const str = `${arr[i].country}, ${arr[i].city}, ${arr[i].hotel}`;
-      matchingStrings[matchingStringsIndex] = str;
-      matchingStringsIndex++;
+    if (item.city.includes('Berlin')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
+    }
+    if (item.city.includes('Rotterdam')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
+    }
+    if (item.city.includes('Ourika')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
+    }
+    if (item.city.includes('Bali')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
+    }
+    if (item.city.includes('Vysokie Tatry')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
+    }
+    if (item.city.includes('Santa Cruz de Tenerife')) {
+      let str = `${item.country}, ${item.city}, ${item.hotel}`;
+      strArr = strArr.concat(str);
     }
   }
+    return strArr;
 
-  return matchingStrings;
 }
 
-console.log(search(data));
+console.log(newArr(data));
+
+
+
+
+
 
 
 
