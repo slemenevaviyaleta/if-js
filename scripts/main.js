@@ -149,12 +149,9 @@ import { sum } from "./module.js";
 
 console.log(sum(5)(2));
 
+import { formatDate } from "./module.js";
 
-let date='2020-11-26';
-let reg=/(\d+)\S(\d+)\S(\d+)/;
-const newDate=date.replace(reg,'$3.$2.$1')
-
-console.log(newDate)
+console.log(formatDate())
 
 
 const data = [
