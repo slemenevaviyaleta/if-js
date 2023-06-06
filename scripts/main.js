@@ -110,39 +110,29 @@ for (let i = 0; i < array.length; i++) {
 console.log(newArray);
 
 const text1 = document.getElementById("text1");
-let i = 0;
-let colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
-
-text1.addEventListener("click", function changeColor() {
-  text1.style.color = colors[i];
-  i++;
-  if (i >= colors.length) {
-    i = 0;
-  }
-});
-
 const text2 = document.getElementById("text2");
-i = 0;
-colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
+const text3 = document.getElementById("text3");
+let i = 0;
+const colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
 
-text2.addEventListener("click", function onClick() {
-  text2.style.color = colors[i];
+function changeColor(element) {
+  element.style.color = colors[i];
   i++;
   if (i >= colors.length) {
     i = 0;
   }
+}
+
+text1.addEventListener("click", function () {
+  changeColor(text1);
 });
 
-const text3 = document.getElementById("text3");
-i = 0;
-colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
+text2.addEventListener("click", function () {
+  changeColor(text2);
+});
 
-text3.addEventListener("click", function onClick() {
-  text3.style.color = colors[i];
-  i++;
-  if (i >= colors.length) {
-    i = 0;
-  }
+text3.addEventListener("click", function () {
+  changeColor(text3);
 });
 
 import { sum } from "./module.js";
