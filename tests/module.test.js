@@ -9,9 +9,9 @@ describe("sum function", () => {
 
 let { formatDate } = require("../scripts/module.js");
 
-describe('formatDate', () => {
-  test('should correctly format the date', () => {
+describe("formatDate", () => {
+  test("should correctly format the date", () => {
     const newDate = formatDate();
-    expect(newDate).toBe('26.11.2020');
+    expect(newDate).toBe("26.11.2020");
   });
 });

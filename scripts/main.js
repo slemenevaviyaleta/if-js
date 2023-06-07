@@ -151,101 +151,68 @@ console.log(sum(5)(2));
 
 import { formatDate } from "./module.js";
 
-console.log(formatDate())
-
+console.log(formatDate());
 
 let data = [
   {
-    country: 'Russia',
-    city: 'Saint Petersburg',
-    hotel: 'Hotel Leopold',
+    country: "Russia",
+    city: "Saint Petersburg",
+    hotel: "Hotel Leopold",
   },
   {
-    country: 'Spain',
-    city: 'Santa Cruz de Tenerife',
-    hotel: 'Apartment Sunshine',
+    country: "Spain",
+    city: "Santa Cruz de Tenerife",
+    hotel: "Apartment Sunshine",
   },
   {
-    country: 'Slowakia',
-    city: 'Vysokie Tatry',
-    hotel: 'Villa Kunerad',
+    country: "Slowakia",
+    city: "Vysokie Tatry",
+    hotel: "Villa Kunerad",
   },
   {
-    country: 'Germany',
-    city: 'Berlin',
-    hotel: 'Hostel Friendship',
+    country: "Germany",
+    city: "Berlin",
+    hotel: "Hostel Friendship",
   },
   {
-    country: 'Indonesia',
-    city: 'Bali',
-    hotel: 'Ubud Bali Resort&SPA',
+    country: "Indonesia",
+    city: "Bali",
+    hotel: "Ubud Bali Resort&SPA",
   },
   {
-    country: 'Netherlands',
-    city: 'Rotterdam',
-    hotel: 'King Kong Hostel',
+    country: "Netherlands",
+    city: "Rotterdam",
+    hotel: "King Kong Hostel",
   },
   {
-    country: 'Marocco',
-    city: 'Ourika',
-    hotel: 'Rokoko Hotel',
+    country: "Marocco",
+    city: "Ourika",
+    hotel: "Rokoko Hotel",
   },
   {
-    country: 'Germany',
-    city: 'Berlin',
-    hotel: 'Hotel Rehberge Berlin Mitte',
+    country: "Germany",
+    city: "Berlin",
+    hotel: "Hotel Rehberge Berlin Mitte",
   },
 ];
 
-function newArr (data) {
-  let strArr=[];
+function search(arr) {
+  let matchingStrings = [];
+  let matchingStringsIndex = 0;
 
-  for (let i = 0; i < data.length; i++) {
-    let item = data[i];
-
-    if (item.city.includes('Saint Petersburg')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
-    }
-
-    if (item.city.includes('Berlin')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
-    }
-    if (item.city.includes('Rotterdam')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
-    }
-    if (item.city.includes('Ourika')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
-    }
-    if (item.city.includes('Bali')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
-    }
-    if (item.city.includes('Vysokie Tatry')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
-    }
-    if (item.city.includes('Santa Cruz de Tenerife')) {
-      let str = `${item.country}, ${item.city}, ${item.hotel}`;
-      strArr = strArr.concat(str);
+  for (let i = 0; i < arr.length; i++) {
+    if (
+        arr[i].city.includes(arr[i].city) ||
+        arr[i].country.includes(arr[i].country) ||
+        arr[i].hotel.includes(arr[i].hotel)
+    ) {
+      let str = `${arr[i].country}, ${arr[i].city}, ${arr[i].hotel}`;
+      matchingStrings[matchingStringsIndex] = str;
+      matchingStringsIndex++;
     }
   }
-    return strArr;
 
+  return matchingStrings;
 }
 
-console.log(newArr(data));
-
-
-
-
-
-
-
-
-
-
-
+console.log(search(data));
