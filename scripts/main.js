@@ -110,39 +110,32 @@ for (let i = 0; i < array.length; i++) {
 console.log(newArray);
 
 const text1 = document.getElementById("text1");
-let i = 0;
-let colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
-
-text1.addEventListener("click", function changeColor() {
-  text1.style.color = colors[i];
-  i++;
-  if (i >= colors.length) {
-    i = 0;
-  }
-});
-
 const text2 = document.getElementById("text2");
-i = 0;
-colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
+const text3 = document.getElementById("text3");
+let i1 = 0;
+let i2 = 0;
+let i3 = 0;
+const colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
 
-text2.addEventListener("click", function onClick() {
-  text2.style.color = colors[i];
-  i++;
-  if (i >= colors.length) {
-    i = 0;
+function changeColor(element, index) {
+  element.style.color = colors[index];
+  index++;
+  if (index >= colors.length) {
+    index = 0;
   }
+  return index;
+}
+
+text1.addEventListener("click", function () {
+  i1 = changeColor(text1, i1);
 });
 
-const text3 = document.getElementById("text3");
-i = 0;
-colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
+text2.addEventListener("click", function () {
+  i2 = changeColor(text2, i2);
+});
 
-text3.addEventListener("click", function onClick() {
-  text3.style.color = colors[i];
-  i++;
-  if (i >= colors.length) {
-    i = 0;
-  }
+text3.addEventListener("click", function () {
+  i3 = changeColor(text3, i3);
 });
 
 import { sum } from "./module.js";
@@ -152,6 +145,7 @@ console.log(sum(5)(2));
 import { formatDate } from "./module.js";
 
 console.log(formatDate());
+
 
 let data = [
   {
@@ -195,24 +189,21 @@ let data = [
     hotel: "Hotel Rehberge Berlin Mitte",
   },
 ];
+function search(parameter, data) {
+  let newData = [];
+  let newDataIndex = 0;
 
-function search(arr) {
-  let matchingStrings = [];
-  let matchingStringsIndex = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    if (
-        arr[i].city.includes(arr[i].city) ||
-        arr[i].country.includes(arr[i].country) ||
-        arr[i].hotel.includes(arr[i].hotel)
-    ) {
-      let str = `${arr[i].country}, ${arr[i].city}, ${arr[i].hotel}`;
-      matchingStrings[matchingStringsIndex] = str;
-      matchingStringsIndex++;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].country.match(parameter) || data[i].city.match(parameter) || data[i].hotel.match(parameter) ) {
+      let str = `${data[i].country}, ${data[i].city}, ${data[i].hotel}`;
+      newData[newDataIndex] = str;
+      newDataIndex++;
     }
   }
 
-  return matchingStrings;
+  return newData;
 }
 
-console.log(search(data));
+console.log(search('Germany', data))
+
+
