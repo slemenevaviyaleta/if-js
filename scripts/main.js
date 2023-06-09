@@ -109,32 +109,102 @@ for (let i = 0; i < array.length; i++) {
 
 console.log(newArray);
 
+
 const text1 = document.getElementById("text1");
 const text2 = document.getElementById("text2");
 const text3 = document.getElementById("text3");
-let i = 0;
+let i1 = 0;
+let i2 = 0;
+let i3 = 0;
 const colors = ["magenta", "cyan", "firebrick", "springgreen", "skyblue"];
 
-function changeColor(element) {
-  element.style.color = colors[i];
-  i++;
-  if (i >= colors.length) {
-    i = 0;
+function changeColor(element, index) {
+  element.style.color = colors[index];
+  index++;
+  if (index >= colors.length) {
+    index = 0;
   }
+  return index;
 }
 
 text1.addEventListener("click", function () {
-  changeColor(text1);
+  i1 = changeColor(text1, i1);
 });
 
 text2.addEventListener("click", function () {
-  changeColor(text2);
+  i2 = changeColor(text2, i2);
 });
 
 text3.addEventListener("click", function () {
-  changeColor(text3);
+  i3 = changeColor(text3, i3);
 });
+
 
 import { sum } from "./module.js";
 
 console.log(sum(5)(2));
+
+
+let data = [
+  {
+    country: "Russia",
+    city: "Saint Petersburg",
+    hotel: "Hotel Leopold",
+  },
+  {
+    country: "Spain",
+    city: "Santa Cruz de Tenerife",
+    hotel: "Apartment Sunshine",
+  },
+  {
+    country: "Slowakia",
+    city: "Vysokie Tatry",
+    hotel: "Villa Kunerad",
+  },
+  {
+    country: "Germany",
+    city: "Berlin",
+    hotel: "Hostel Friendship",
+  },
+  {
+    country: "Indonesia",
+    city: "Bali",
+    hotel: "Ubud Bali Resort&SPA",
+  },
+  {
+    country: "Netherlands",
+    city: "Rotterdam",
+    hotel: "King Kong Hostel",
+  },
+  {
+    country: "Marocco",
+    city: "Ourika",
+    hotel: "Rokoko Hotel",
+  },
+  {
+    country: "Germany",
+    city: "Berlin",
+    hotel: "Hotel Rehberge Berlin Mitte",
+  },
+];
+
+function search(arr) {
+  let matchingStrings = [];
+  let matchingStringsIndex = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (
+        arr[i].city.includes(arr[i].city) ||
+        arr[i].country.includes(arr[i].country) ||
+        arr[i].hotel.includes(arr[i].hotel)
+    ) {
+      let str = `${arr[i].country}, ${arr[i].city}, ${arr[i].hotel}`;
+      matchingStrings[matchingStringsIndex] = str;
+      matchingStringsIndex++;
+    }
+  }
+
+  return matchingStrings;
+}
+
+console.log(search(data));
