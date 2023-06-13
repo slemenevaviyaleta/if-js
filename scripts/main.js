@@ -144,7 +144,6 @@ import { sum } from "./module.js";
 
 console.log(sum(5)(2));
 
-
 let data = [
   {
     country: "Russia",
@@ -188,23 +187,19 @@ let data = [
   },
 ];
 
-function search(arr) {
-  let matchingStrings = [];
-  let matchingStringsIndex = 0;
+function search(parameter, data) {
+  let newData = [];
+  let newDataIndex = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    if (
-        arr[i].city.includes(arr[i].city) ||
-        arr[i].country.includes(arr[i].country) ||
-        arr[i].hotel.includes(arr[i].hotel)
-    ) {
-      let str = `${arr[i].country}, ${arr[i].city}, ${arr[i].hotel}`;
-      matchingStrings[matchingStringsIndex] = str;
-      matchingStringsIndex++;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].country.match(parameter) || data[i].city.match(parameter) || data[i].hotel.match(parameter) ) {
+      let str = `${data[i].country}, ${data[i].city}, ${data[i].hotel}`;
+      newData[newDataIndex] = str;
+      newDataIndex++;
     }
   }
 
-  return matchingStrings;
+  return newData;
 }
 
-console.log(search(data));
+console.log(search('Germany', data))

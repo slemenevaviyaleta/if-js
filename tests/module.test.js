@@ -6,3 +6,12 @@ describe("sum function", () => {
     expect(number).toBe(5);
   });
 });
+
+let { formatDate } = require("../scripts/module.js");
+
+describe("formatDate", () => {
+  test("should correctly format the date", () => {
+    const newDate = formatDate();
+    expect(newDate).toBe("26.11.2020");
+  });
+});
