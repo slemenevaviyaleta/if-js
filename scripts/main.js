@@ -109,6 +109,7 @@ for (let i = 0; i < array.length; i++) {
 
 console.log(newArray);
 
+
 const text1 = document.getElementById("text1");
 const text2 = document.getElementById("text2");
 const text3 = document.getElementById("text3");
@@ -138,14 +139,10 @@ text3.addEventListener("click", function () {
   i3 = changeColor(text3, i3);
 });
 
+
 import { sum } from "./module.js";
 
 console.log(sum(5)(2));
-
-import { formatDate } from "./module.js";
-
-console.log(formatDate());
-
 
 let data = [
   {
@@ -189,6 +186,7 @@ let data = [
     hotel: "Hotel Rehberge Berlin Mitte",
   },
 ];
+
 function search(parameter, data) {
   let newData = [];
   let newDataIndex = 0;
@@ -205,5 +203,3 @@ function search(parameter, data) {
 }
 
 console.log(search('Germany', data))
-
-
