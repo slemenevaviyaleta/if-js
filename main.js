@@ -173,6 +173,76 @@ console.log(deepEqual(obj1, obj2)); // true
 console.log(deepEqual(obj1, obj3)); // false
 
 
+class User {
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+}
+
+class Student extends User {
+    constructor(firstName, lastName, admissionYear, courseName) {
+        super(firstName, lastName);
+        this.admissionYear = admissionYear;
+        this.courseName = courseName;
+    }
+
+    get course() {
+        const currentYear = new Date().getFullYear();
+        return currentYear - this.admissionYear;
+    }
+}
+
+class Students {
+    constructor(studentsData) {
+        this.students = studentsData.map(
+            ({ firstName, lastName, admissionYear, courseName }) =>
+                new Student(firstName, lastName, admissionYear, courseName)
+        );
+    }
+
+    getInfo() {
+        const sortedStudents = this.students.sort((a, b) => a.course - b.course);
+        return sortedStudents.map(
+            (student) =>
+                `${student.fullName} - ${student.courseName}, ${student.course} курс`
+        );
+    }
+}
+
+const studentsData = [
+    {
+        firstName: "Василий",
+        lastName: "Петров",
+        admissionYear: 2021,
+        courseName: "Java",
+    },
+    {
+        firstName: "Николай",
+        lastName: "Петров",
+        admissionYear: 2021,
+        courseName: "Android",
+    },
+    {
+        firstName: "Иван",
+        lastName: "Иванов",
+        admissionYear: 2020,
+        courseName: "JavaScript",
+    },
+    {
+        firstName: "Александр",
+        lastName: "Федоров",
+        admissionYear: 2019,
+        courseName: "Python",
+    },
+];
+
+const students = new Students(studentsData);
+console.log(students.getInfo());
 
 
 
