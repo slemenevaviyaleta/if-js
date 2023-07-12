@@ -46,7 +46,6 @@ for (let i = 0; i < array.length; i++) {
 }
 
 
-
 function palindrome(word) {
     let length = word.length;
     for (let i = 0; i < length; i++) {
@@ -60,16 +59,15 @@ function palindrome(word) {
 console.log(palindrome('шалаш'));
 
 
-
-function min(a,b) {
-    if (a<b) {
+function min(a, b) {
+    if (a < b) {
         return a;
     } else {
         return b;
     }
 }
 
-console.log(min(17,10))
+console.log(min(17, 10))
 
 //function min(a,b) {
 //     return(a<b)? a : b;
@@ -78,24 +76,21 @@ console.log(min(17,10))
 // console.log(min(10,66))
 
 
-
-function max(a,b) {
-    if (a>b) {
+function max(a, b) {
+    if (a > b) {
         return a;
     } else {
         return b;
     }
 }
 
-console.log(max(27,10))
+console.log(max(27, 10))
 
 //function max (a,b) {
 //     return(a>b)? a : b;
 // }
 //
 // console.log(max(1,-1))
-
-
 
 
 array = [60, 19, 14, 5, 100, 67, 86, 0, 5, 90, 12];
@@ -107,7 +102,7 @@ for (let i = 0; i < array.length; i++) {
     if (element % 10 === 0) {
         newArray[i] = element / 10 + "zero";
         if (element % 100 === 0) {
-            newArray[i]= element / 100 + "zero" + "zero";
+            newArray[i] = element / 100 + "zero" + "zero";
         }
         if (element === 0) {
             newArray[i] = "zero";
@@ -186,13 +181,14 @@ class User {
 
 class Student extends User {
     constructor(firstName, lastName, admissionYear, courseName) {
-        super(firstName, lastName);
+        super(firstName, lastName);//?????????????????
         this.admissionYear = admissionYear;
         this.courseName = courseName;
     }
 
     get course() {
-        const currentYear = new Date().getFullYear();
+        //const currentYear = new Date().getFullYear();?????????????
+        const currentYear = 2023;
         return currentYear - this.admissionYear;
     }
 }
@@ -200,13 +196,13 @@ class Student extends User {
 class Students {
     constructor(studentsData) {
         this.students = studentsData.map(
-            ({ firstName, lastName, admissionYear, courseName }) =>
+            ({firstName, lastName, admissionYear, courseName}) =>
                 new Student(firstName, lastName, admissionYear, courseName)
         );
     }
 
     getInfo() {
-        const sortedStudents = this.students.sort((a, b) => a.course - b.course);
+        const sortedStudents = this.students.sort((a, b) => a.course - b.course);//?????????
         return sortedStudents.map(
             (student) =>
                 `${student.fullName} - ${student.courseName}, ${student.course} курс`
@@ -243,6 +239,49 @@ const studentsData = [
 
 const students = new Students(studentsData);
 console.log(students.getInfo());
+
+const button1 = document.querySelector('#text1');
+const button2 = document.querySelector('#text2');
+const button3 = document.querySelector('#text3');
+
+const colors = {
+    data: ['magenta', 'cyan', 'firebrick', 'springgreen', 'skyblue'],
+    index: 0,
+    [Symbol.iterator]() {
+        const self = this;
+        let index = 0;
+        return {
+            next() {
+                if (index < self.data.length) {
+                    return {value: self.data[index++], done: false};
+                } else {
+                    index = 0; // Сбросить индекс на 0, чтобы начать с начала массива
+                    return {value: self.data[index++], done: false};
+                }
+            }
+        };
+    }
+};
+
+const iterator = colors[Symbol.iterator]();
+let currentColor = iterator.next().value;
+
+const changeStyle = id => event => {
+    event.target.style.color = currentColor;
+    currentColor = iterator.next(id).value;
+};
+
+
+button1.addEventListener('click', changeStyle('#text1'));
+button2.addEventListener('click', changeStyle('#text2'));
+button3.addEventListener('click', changeStyle('#text3'));
+
+
+
+
+
+
+
 
 
 
