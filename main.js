@@ -255,7 +255,7 @@ const colors = {
                 if (index < self.data.length) {
                     return {value: self.data[index++], done: false};
                 } else {
-                    index = 0; // Сбросить индекс на 0, чтобы начать с начала массива
+                    index = 0;
                     return {value: self.data[index++], done: false};
                 }
             }
