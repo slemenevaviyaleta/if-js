@@ -241,7 +241,6 @@ const students = new Students(studentsData);
 console.log(students.getInfo());
 
 
-
 const button1 = document.querySelector('#text1');
 const button2 = document.querySelector('#text2');
 const button3 = document.querySelector('#text3');
@@ -253,27 +252,31 @@ const colors = {
         const self = this;
         let index = 0;
         return {
-            next() {
+            next(id) {
                 if (index >= self.data.length) {
                     index = 0;
                 }
-                return {value: self.data[index++], done: false};
+                return { value: self.data[index++], done: false };
             },
         };
     },
 };
 
-const changeStyle = (id) => (event) => {
+const changeStyle = (id) => {
     const iterator = colors[Symbol.iterator]();
     let currentColor = iterator.next().value;
 
-    event.target.style.color = currentColor;
-    currentColor = iterator.next(id).value;
+    return function(event) {
+        event.target.style.color = currentColor;
+        currentColor = iterator.next(id).value;
+    };
 };
+
 
 button1.addEventListener('click', changeStyle('#text1'));
 button2.addEventListener('click', changeStyle('#text2'));
 button3.addEventListener('click', changeStyle('#text3'));
+
 
 
 
