@@ -29,11 +29,11 @@ body {
 }
 
 .container {
-    max-width:1230px;
-    width:100%;
-    margin:0  auto;
-    padding-left:16px;
-    padding-right:16px;
+    max-width: 1230px;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 
@@ -236,7 +236,7 @@ body {
 .top-section__form {
     display: flex;
     align-items: flex-end;
-    margin-bottom: 120px;
+    margin-bottom: 20px;
     background-color: var(--white);
     border-radius: 8px;
     max-height: 68px;
@@ -293,6 +293,52 @@ body {
     display: none;
 }
 
+.js__show {
+    display: block;
+}
+
+
+.filter__wrapper {
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    max-width: 259px;
+    padding: 22px 22px;
+    border-radius: 8px;
+    margin-left: 720px;
+}
+
+.js__hidden {
+    display: none;
+}
+
+.filter__section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter__span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+}
+
+.filter__btn {
+    padding: 5px 10px;
+    border-radius: 1px;
+    background-color: var(--white);
+    border-color: #CECECE;
+    color: #CECECE;
+    font-size: 18px;
+    line-height: 21px
+
+}
+
+.filter__section {
+    margin-bottom: 12px;
+}
+
+
 .download {
     display: flex;
     gap: 8px;
@@ -302,6 +348,7 @@ body {
 .offer {
     padding: var(--container-pad-btm-top) 0;
 }
+
 .offer__title {
     text-align: center;
     font-weight: 500;
