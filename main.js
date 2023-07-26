@@ -103,6 +103,9 @@ const selectElements = document.querySelectorAll('.filter__select');
 let childNum = 0;
 
 childPlusBtn.addEventListener('click', function () {
+    if (adultsNum === 0) {
+        childPlusBtn.setAttribute('disabled');
+    }
     if (childNum < 10) {
         childNum += 1;
         childNumElem.textContent = childNum;
