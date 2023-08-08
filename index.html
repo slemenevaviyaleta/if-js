@@ -86,7 +86,7 @@
                                 placeholder="2 Adults —0 Children — 1 Room"
                         />
                     </div>
-                    <button class="form__btn" type="submit">Search</button>
+                    <button class="form__btn" type="submit" id ="search__btn-js">Search</button>
                 </form>
                 <div class="filter__wrapper js__hidden">
                     <div class="filter__adults filter__section">
@@ -399,7 +399,13 @@
                     </div>
                     <button class="form-sm__btn col-sm-6">Search</button>
                 </form>
+            </div>
         </section>
+
+        <div class="available__hotels container js__hidden" id="hotels__js">
+            <h2 class="available__hotels__title js__hidden">Available hotels</h2>
+            <div class="available__hotels-wrapper"></div>
+        </div>
 
 
         <section class="download">
@@ -459,6 +465,7 @@
         </div>
     </div>
 </section>
+<div class="container"></div>
 <script src="main.js"></script>
 
 </body>

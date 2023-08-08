@@ -1,6 +1,5 @@
 const carousel = {
-    data: 'https://if-student-api.onrender.com/api/hotels/popular',
-    done: false,
+    data: 'https://if-student-api.onrender.com/api/hotels/popular', done: false,
 
     fetchData() {
         return fetch(this.data)
@@ -11,28 +10,24 @@ const carousel = {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
-                if (!Array.isArray(data)) {
-                    throw new Error('Fetched data is not an array');
-                }
-                this.data = data; // Store the fetched data in the carousel object
+                console.log(this.data);
+                this.data = data;
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     },
 
-    index: 0,
-    next() {
+    index: 0, next() {
         if (this.index >= this.data.length) {
             this.done = true;
-            return { done: true };
+            return {done: true};
         }
 
         const imageUrl = this.data[this.index].imageUrl;
         this.index++;
 
-        return { value: imageUrl, done: false };
+        return {value: imageUrl, done: false};
     },
 };
 
@@ -50,7 +45,7 @@ function showNextImage() {
     }
 
     const img = document.createElement('img');
-    const { value, done } = carousel.next();
+    const {value, done} = carousel.next();
 
     if (!done) {
         img.src = value;
@@ -59,7 +54,6 @@ function showNextImage() {
         carouselWrapper.appendChild(img);
     }
 }
-
 
 
 //////////////
@@ -161,6 +155,64 @@ function updateCounts(adultsCount, childrenCount, roomCount) {
 
 updateCounts(adultsNum, childNum, roomNum);
 
+
+////////////
+
+const searchButton = document.getElementById('search__btn-js');
+const availableHotelsDiv = document.querySelector('.available__hotels-wrapper');
+
+searchButton.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const searchValue = document.getElementById('destination').value;
+    const url = `https://if-student-api.onrender.com/api/hotels?search=${searchValue}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            availableHotelsDiv.innerHTML = '';
+            document.querySelector('.available__hotels__title').classList.remove('js__hidden');
+            document.querySelector('.available__hotels').classList.remove('js__hidden');
+
+
+            let hotelRow = document.createElement('div');
+            hotelRow.className = 'hotel-row';
+
+            data.forEach((hotel) => {
+                const hotelElement = document.createElement('div');
+                hotelElement.className = 'hotel__item';
+
+                const imageElement = document.createElement('img');
+                imageElement.src = hotel.imageUrl;
+                imageElement.width = 295;
+                imageElement.height = 295;
+                imageElement.style.marginBottom = '24px';
+
+                const nameElement = document.createElement('div');
+                nameElement.textContent = hotel.name;
+                nameElement.style.color = '#3077C6';
+                nameElement.style.fontSize = '24px';
+                nameElement.style.fontWeight = '400';
+                nameElement.style.fontFamily = 'Roboto, sans-serif';
+                nameElement.style.marginBottom = '24px';
+
+
+                const locationElement = document.createElement('div');
+                locationElement.textContent = `${hotel.country}, ${hotel.city}`;
+                locationElement.style.color = '#BFBFBF';
+                locationElement.style.fontSize = '24px';
+
+                hotelElement.appendChild(imageElement);
+                hotelElement.appendChild(nameElement);
+                hotelElement.appendChild(locationElement);
+                hotelRow.appendChild(hotelElement);
+                availableHotelsDiv.appendChild(hotelRow);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
 
 
 

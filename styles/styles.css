@@ -910,6 +910,33 @@ body {
     line-height: 1.1;
 }
 
+.hotel-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 80px;
+}
+
+.available__hotels {
+    background-color: var(--background-color);
+    padding: 60px 100px;
+    margin-bottom: 80px;
+}
+
+.available__hotels__title {
+    text-align: center;
+    margin-bottom: 106px;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: var(--unitless-value);
+    color: var(--text-color)
+}
+
+
+
+
+
+
 @media (max-width: 768px) {
     :root {
         --col-width: calc(100% / 6);
