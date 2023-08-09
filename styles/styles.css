@@ -918,9 +918,7 @@ body {
 }
 
 .available__hotels {
-    background-color: var(--background-color);
     padding: 60px 100px;
-    margin-bottom: 80px;
 }
 
 .available__hotels__title {

@@ -158,11 +158,19 @@ updateCounts(adultsNum, childNum, roomNum);
 
 ////////////
 
-const searchButton = document.getElementById('search__btn-js');
+const hotelsSection = document.querySelector('.available__hotels');
 const availableHotelsDiv = document.querySelector('.available__hotels-wrapper');
+const searchButton = document.getElementById('search__btn-js');
 
 searchButton.addEventListener('click', function (event) {
     event.preventDefault();
+
+    hotelsSection.scrollIntoView({
+        behavior: 'smooth'
+    });
+
+    document.querySelector('.available__hotels__title').classList.remove('js__hidden');
+    hotelsSection.classList.remove('js__hidden');
 
     const searchValue = document.getElementById('destination').value;
     const url = `https://if-student-api.onrender.com/api/hotels?search=${searchValue}`;
@@ -171,48 +179,27 @@ searchButton.addEventListener('click', function (event) {
         .then(response => response.json())
         .then(data => {
             availableHotelsDiv.innerHTML = '';
-            document.querySelector('.available__hotels__title').classList.remove('js__hidden');
-            document.querySelector('.available__hotels').classList.remove('js__hidden');
-
-
-            let hotelRow = document.createElement('div');
-            hotelRow.className = 'hotel-row';
-
-            data.forEach((hotel) => {
-                const hotelElement = document.createElement('div');
-                hotelElement.className = 'hotel__item';
-
-                const imageElement = document.createElement('img');
-                imageElement.src = hotel.imageUrl;
-                imageElement.width = 295;
-                imageElement.height = 295;
-                imageElement.style.marginBottom = '24px';
-
-                const nameElement = document.createElement('div');
-                nameElement.textContent = hotel.name;
-                nameElement.style.color = '#3077C6';
-                nameElement.style.fontSize = '24px';
-                nameElement.style.fontWeight = '400';
-                nameElement.style.fontFamily = 'Roboto, sans-serif';
-                nameElement.style.marginBottom = '24px';
-
-
-                const locationElement = document.createElement('div');
-                locationElement.textContent = `${hotel.country}, ${hotel.city}`;
-                locationElement.style.color = '#BFBFBF';
-                locationElement.style.fontSize = '24px';
-
-                hotelElement.appendChild(imageElement);
-                hotelElement.appendChild(nameElement);
-                hotelElement.appendChild(locationElement);
-                hotelRow.appendChild(hotelElement);
-                availableHotelsDiv.appendChild(hotelRow);
-            });
+            renderHotels(data);
         })
         .catch(error => {
             console.error('Error:', error);
+            availableHotelsDiv.innerHTML = '<p>An error occurred while fetching hotels. Please try again later.</p>';
         });
 });
 
+function renderHotels(data) {
+    const hotelRowsHTML = data.map(hotel => {
+        return `
+                <div class="hotel__item">
+                    <img src="${hotel.imageUrl}" width="295" height="295" style="margin-bottom: 24px;">
+                    <div class="hotel-name" style="color: #3077C6; font-size: 24px; font-weight: 400; font-family: Roboto, sans-serif; margin-bottom: 24px;">${hotel.name}</div>
+                    <div class="hotel-location" style="color: #BFBFBF; font-size: 24px;">${hotel.country}, ${hotel.city}</div>
+                </div>
+            `;
+    }).join('');
 
-
+    const hotelRow = document.createElement('div');
+    hotelRow.className = 'hotel-row';
+    hotelRow.innerHTML = hotelRowsHTML;
+    availableHotelsDiv.appendChild(hotelRow);
+}
