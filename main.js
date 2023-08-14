@@ -1,8 +1,16 @@
 const carousel = {
-    data: 'https://if-student-api.onrender.com/api/hotels/popular', done: false,
+    data: null,
+    done: false,
 
     fetchData() {
-        return fetch(this.data)
+        const cachedData = sessionStorage.getItem('carouselData');
+
+        if (cachedData) {
+            this.data = JSON.parse(cachedData);
+            return Promise.resolve();
+        }
+
+        return fetch('https://if-student-api.onrender.com/api/hotels/popular')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -10,24 +18,25 @@ const carousel = {
                 return response.json();
             })
             .then(data => {
-                console.log(this.data);
                 this.data = data;
+                sessionStorage.setItem('carouselData', JSON.stringify(data));
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     },
 
-    index: 0, next() {
+    index: 0,
+    next() {
         if (this.index >= this.data.length) {
             this.done = true;
-            return {done: true};
+            return { done: true };
         }
 
         const imageUrl = this.data[this.index].imageUrl;
         this.index++;
 
-        return {value: imageUrl, done: false};
+        return { value: imageUrl, done: false };
     },
 };
 
@@ -45,7 +54,7 @@ function showNextImage() {
     }
 
     const img = document.createElement('img');
-    const {value, done} = carousel.next();
+    const { value, done } = carousel.next();
 
     if (!done) {
         img.src = value;
@@ -54,6 +63,7 @@ function showNextImage() {
         carouselWrapper.appendChild(img);
     }
 }
+
 
 
 //////////////
