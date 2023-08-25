@@ -1,9 +1,16 @@
 const carousel = {
-    data: 'https://if-student-api.onrender.com/api/hotels/popular',
+    data: null,
     done: false,
 
     fetchData() {
-        return fetch(this.data)
+        const cachedData = sessionStorage.getItem('carouselData');
+
+        if (cachedData) {
+            this.data = JSON.parse(cachedData);
+            return Promise.resolve();
+        }
+
+        return fetch('https://if-student-api.onrender.com/api/hotels/popular')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -11,11 +18,8 @@ const carousel = {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
-                if (!Array.isArray(data)) {
-                    throw new Error('Fetched data is not an array');
-                }
-                this.data = data; // Store the fetched data in the carousel object
+                this.data = data;
+                sessionStorage.setItem('carouselData', JSON.stringify(data));
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -26,13 +30,13 @@ const carousel = {
     next() {
         if (this.index >= this.data.length) {
             this.done = true;
-            return { done: true };
+            return {done: true};
         }
 
         const imageUrl = this.data[this.index].imageUrl;
         this.index++;
 
-        return { value: imageUrl, done: false };
+        return {value: imageUrl, done: false};
     },
 };
 
@@ -50,7 +54,7 @@ function showNextImage() {
     }
 
     const img = document.createElement('img');
-    const { value, done } = carousel.next();
+    const {value, done} = carousel.next();
 
     if (!done) {
         img.src = value;
@@ -59,7 +63,6 @@ function showNextImage() {
         carouselWrapper.appendChild(img);
     }
 }
-
 
 
 //////////////
@@ -162,5 +165,62 @@ function updateCounts(adultsCount, childrenCount, roomCount) {
 updateCounts(adultsNum, childNum, roomNum);
 
 
+////////////
 
+const hotelsSection = document.querySelector('.available__hotels');
+const availableHotelsDiv = document.querySelector('.available__hotels-wrapper');
+const searchButton = document.getElementById('search__btn-js');
+
+searchButton.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    hotelsSection.scrollIntoView({
+        behavior: 'smooth'
+    });
+
+    document.querySelector('.available__hotels__title').classList.remove('js__hidden');
+    hotelsSection.classList.remove('js__hidden');
+
+    const searchValue = document.getElementById('destination').value;
+    const guestsInput = document.getElementById("guests").value;
+    const values = guestsInput.split("—").map(value => value.trim());
+
+    const [adults, children, rooms] = values;
+    const adultsCount = parseInt(adults, 10);
+    const childrenCount = parseInt(children, 10);
+    const roomsCount = parseInt(rooms, 10);
+
+    if (adultsCount > 0 && roomsCount > 0) {
+        const apiUrl = `https://if-student-api.onrender.com/api/hotels?search=${searchValue}&adults=${adultsCount}&children=${childrenCount}&rooms=${roomsCount}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                availableHotelsDiv.innerHTML = '';
+                renderHotels(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                availableHotelsDiv.innerHTML = '<p>An error occurred while fetching hotels. Please try again later.</p>';
+            });
+    }
+
+});
+
+function renderHotels(data) {
+    const hotelRowsHTML = data.map(hotel => {
+        return `
+            <div class="hotel__item">
+                <img src="${hotel.imageUrl}" width="295" height="295" style="margin-bottom: 24px;">
+                <div class="hotel-name" style="color: #3077C6; font-size: 24px; font-weight: 400; font-family: Roboto, sans-serif; margin-bottom: 24px;">${hotel.name}</div>
+                <div class="hotel-location" style="color: #BFBFBF; font-size: 24px;">${hotel.country}, ${hotel.city}</div>
+            </div>
+        `;
+    }).join('');
+
+    const hotelRow = document.createElement('div');
+    hotelRow.className = 'hotel-row';
+    hotelRow.innerHTML = hotelRowsHTML;
+    availableHotelsDiv.appendChild(hotelRow);
+}
 
