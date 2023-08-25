@@ -182,29 +182,40 @@ searchButton.addEventListener('click', function (event) {
     hotelsSection.classList.remove('js__hidden');
 
     const searchValue = document.getElementById('destination').value;
-    const url = `https://if-student-api.onrender.com/api/hotels?search=${searchValue}`;
+    const guestsInput = document.getElementById("guests").value;
+    const values = guestsInput.split("—").map(value => value.trim());
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            availableHotelsDiv.innerHTML = '';
-            renderHotels(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            availableHotelsDiv.innerHTML = '<p>An error occurred while fetching hotels. Please try again later.</p>';
-        });
+    const [adults, children, rooms] = values;
+    const adultsCount = parseInt(adults, 10);
+    const childrenCount = parseInt(children, 10);
+    const roomsCount = parseInt(rooms, 10);
+
+    if (adultsCount > 0 && roomsCount > 0) {
+        const apiUrl = `https://if-student-api.onrender.com/api/hotels?search=${searchValue}&adults=${adultsCount}&children=${childrenCount}&rooms=${roomsCount}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                availableHotelsDiv.innerHTML = '';
+                renderHotels(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                availableHotelsDiv.innerHTML = '<p>An error occurred while fetching hotels. Please try again later.</p>';
+            });
+    }
+
 });
 
 function renderHotels(data) {
     const hotelRowsHTML = data.map(hotel => {
         return `
-                <div class="hotel__item">
-                    <img src="${hotel.imageUrl}" width="295" height="295" style="margin-bottom: 24px;">
-                    <div class="hotel-name" style="color: #3077C6; font-size: 24px; font-weight: 400; font-family: Roboto, sans-serif; margin-bottom: 24px;">${hotel.name}</div>
-                    <div class="hotel-location" style="color: #BFBFBF; font-size: 24px;">${hotel.country}, ${hotel.city}</div>
-                </div>
-            `;
+            <div class="hotel__item">
+                <img src="${hotel.imageUrl}" width="295" height="295" style="margin-bottom: 24px;">
+                <div class="hotel-name" style="color: #3077C6; font-size: 24px; font-weight: 400; font-family: Roboto, sans-serif; margin-bottom: 24px;">${hotel.name}</div>
+                <div class="hotel-location" style="color: #BFBFBF; font-size: 24px;">${hotel.country}, ${hotel.city}</div>
+            </div>
+        `;
     }).join('');
 
     const hotelRow = document.createElement('div');
@@ -213,29 +224,3 @@ function renderHotels(data) {
     availableHotelsDiv.appendChild(hotelRow);
 }
 
-const fileForm = document.getElementById('fileForm');
-
-fileForm.addEventListener('submit', event => {
-    event.preventDefault();
-
-    const formData = new FormData(fileForm);
-
-    const fetchData = {
-        method: 'POST',
-        body: formData
-    }
-
-    fetch('https://if-student-api.onrender.com/api/file', fetchData)
-        .then (response => {
-            if (!response.ok) {
-                throw new Error(response.statusText)
-            }
-            return response.json();
-        })
-        .then (data => {
-            console.log('Response data:', data);
-        })
-        .catch (error => {
-            console.log('Error:', error)
-        })
-});
